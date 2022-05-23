@@ -1,0 +1,17 @@
+version: 0.2
+phases:
+  build:
+    commands:
+      - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      - apt install -y unzip
+      - unzip awscliv2.zip
+      #- ./aws/install
+      - which aws
+      - ls -la
+      #- aws cloudformation package --template s3.yml --s3-bucket $TEMPLATE_BUCKET --output-template-file packaged-root-template.yaml
+      - aws cloudformation validate-template --template-body file://s3.yml
+      #- aws cloudformation update-stack --stack-name teststack --template-body file://s3.yml
+      - aws cloudformation create-stack --stack-name teststack --template-body file://s3.yml
+artifacts:
+  files:
+    - 'packaged-root-template.yaml'
