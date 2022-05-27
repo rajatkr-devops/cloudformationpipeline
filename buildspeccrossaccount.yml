@@ -1,0 +1,25 @@
+version: 0.2
+phases:
+  build:
+    commands:
+      - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      - apt install -y unzip
+      - unzip awscliv2.zip
+      #- ./aws/install
+      - which aws
+      - ls -la
+      #- aws cloudformation package --template s3.yml --s3-bucket $TEMPLATE_BUCKET --output-template-file packaged-root-template.yaml
+      #- aws cloudformation validate-template --template-body file://s3.yml
+     #- aws cloudformation validate-template --template-body file://vpc.yml
+      #- aws cloudformation delete-stack --stack-name teststack
+      #- aws cloudformation delete-stack --stack-name vpcstack
+      #- aws configure --profile deploymentRole set role_arn arn:aws:iam::xxxxx:role/crossaccount-937205552269-af-south-1
+      - aws configure --profile deploymentRole set role_arn arn:aws:iam::xxxxxx:role/croosaccount01
+      - aws configure --profile deploymentRole set credential_source EcsContainer
+      - aws sts get-caller-identity --profile deploymentRole
+      #- aws cloudformation update-stack --stack-name teststack --template-body file://s3.yml
+      #- aws --region us-east-2 cloudformation create-stack --stack-name teststack --template-body file://s3.yml
+      #- aws cloudformation create-stack --stack-name teststack --template-body file://s3.yml --profile deploymentRole
+      - aws cloudformation delete-stack --stack-name teststack --template-body file://s3.yml --profile deploymentRole
+      #- aws cloudformation update-stack --stack-name vpcstack --template-body file://vpc.yml
+      #- aws cloudformation create-stack --stack-name vpcstack --template-body file://vpc.yml
